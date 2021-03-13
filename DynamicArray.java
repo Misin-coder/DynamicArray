@@ -22,8 +22,15 @@ public class DynamicArray<E> implements Iterable<E>{
 
 		@Override
 		public boolean hasNext() {
-
-			return (array[index] != null);
+			try {
+				if(array[index] != null) {
+					return true;
+				} else return false;
+			} catch(ArrayIndexOutOfBoundsException e) {
+				return false;
+			}
+			
+//			return (array[index] != null);
 		}
 
 		@Override
@@ -68,7 +75,7 @@ public class DynamicArray<E> implements Iterable<E>{
 
 	public E pop() {
 
-		if (currentElement < capacity / 2 - 1) {
+		if (currentElement < capacity / 2 ) {
 			shrink();
 		}
 		currentElement--;
@@ -87,11 +94,12 @@ public class DynamicArray<E> implements Iterable<E>{
 		array = temp;
 	}
 
-	public void add(E data, int index) {
+	public void add(E data, int index)  {
 
 		if (currentElement == capacity) {
 			resize();
 		}
+		
 		E value1 = array[index];
 		array[index] = data;
 		for (int i = index + 1; i < capacity; i++) {
